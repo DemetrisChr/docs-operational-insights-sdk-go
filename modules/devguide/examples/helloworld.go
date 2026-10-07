@@ -5,18 +5,18 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/couchbase/gocbanalytics"
+	cbinsights "github.com/couchbase/gocbinsights"
 )
 
 func helloWorld() {
-	cluster, err := cbanalytics.NewCluster(
+	cluster, err := cbinsights.NewCluster(
 		connStr,
-		cbanalytics.NewBasicAuthCredential(username, password),
+		cbinsights.NewBasicAuthCredential(username, password),
 		// The third parameter is optional.
 		// This example sets the default server query timeout to 3 minutes,
 		// that is the timeout value sent to the query server.
-		cbanalytics.NewClusterOptions().SetTimeoutOptions(
-			cbanalytics.NewTimeoutOptions().SetQueryTimeout(3*time.Minute),
+		cbinsights.NewClusterOptions().SetTimeoutOptions(
+			cbinsights.NewTimeoutOptions().SetQueryTimeout(3*time.Minute),
 		),
 	)
 	handleErr(err)
@@ -26,7 +26,7 @@ func helloWorld() {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	printRows := func(result *cbanalytics.QueryResult) {
+	printRows := func(result *cbinsights.QueryResult) {
 		for row := result.NextRow(); row != nil; row = result.NextRow() {
 			var content map[string]interface{}
 
@@ -48,7 +48,7 @@ func helloWorld() {
 	result, err = cluster.ExecuteQuery(
 		ctx,
 		"select ?=1",
-		cbanalytics.NewQueryOptions().SetPositionalParameters([]interface{}{1}),
+		cbinsights.NewQueryOptions().SetPositionalParameters([]interface{}{1}),
 	)
 	handleErr(err)
 
@@ -58,7 +58,7 @@ func helloWorld() {
 	result, err = cluster.ExecuteQuery(
 		ctx,
 		"select $foo=1",
-		cbanalytics.NewQueryOptions().SetNamedParameters(map[string]interface{}{"foo": 1}),
+		cbinsights.NewQueryOptions().SetNamedParameters(map[string]interface{}{"foo": 1}),
 	)
 	handleErr(err)
 

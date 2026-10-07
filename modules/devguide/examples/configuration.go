@@ -3,17 +3,17 @@ package main
 import (
 	"time"
 
-	"github.com/couchbase/gocbanalytics"
+	cbinsights "github.com/couchbase/gocbinsights"
 )
 
 func configuration() {
 	// #tag::configuration[]
-	cluster, err := cbanalytics.NewCluster(
+	cluster, err := cbinsights.NewCluster(
 		connStr,
-		cbanalytics.NewBasicAuthCredential(username, password),
-		cbanalytics.NewClusterOptions().
+		cbinsights.NewBasicAuthCredential(username, password),
+		cbinsights.NewClusterOptions().
 			SetTimeoutOptions(
-				cbanalytics.NewTimeoutOptions().
+				cbinsights.NewTimeoutOptions().
 					SetConnectTimeout(30*time.Second).
 					SetQueryTimeout(2*time.Minute),
 			),

@@ -22,7 +22,7 @@ asciidoc:
     name_platform_lc: 'go'
     name-sdk: 'Go Operational Insights SDK'
     sdk_api: '1.0'
-    sdk-api-link: https://pkg.go.dev/github.com/couchbase/gocbanalytics
-    sdk-gh-link: https://github.com/couchbase/gocbanalytics
+    sdk-api-link: https://pkg.go.dev/github.com/couchbase/gocbinsights
+    sdk-gh-link: https://github.com/couchbase/gocbinsights
     async-server-api-feature-name: 'Server Asynchronous Request API'
     

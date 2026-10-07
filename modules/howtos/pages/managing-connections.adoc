@@ -25,7 +25,7 @@ This page is a wider look at the topic.
 
 A connection to an Operational Insights cluster is represented by a `Cluster` object.
 A `Cluster` provides access to Buckets and Scopes, as well as various Couchbase services and management interfaces.
-The simplest way to create a `Cluster` object is to call `cbanalytics.Connect()` with a <<connection-strings, connection string>>, username, and password:
+The simplest way to create a `Cluster` object is to call `cbinsights.Connect()` with a <<connection-strings, connection string>>, username, and password:
 
 [source,golang]
 ----

@@ -77,7 +77,7 @@ The SDK sends a request, polls for results, and then fetches once the result is 
 .Server Asynchronous API Example
 [source,go]
 ----
-include::devguide:example$serverasync.go[indent=0,tag=server-async]
+include::devguide:example$serverasync/serverasync.go[indent=0,tag=server-async]
 ----
 
 

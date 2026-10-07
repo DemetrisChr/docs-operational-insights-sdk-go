@@ -7,11 +7,11 @@ import (
 	"log"
 	"time"
 
-	cbanalytics "github.com/couchbase/gocbanalytics"
+	cbinsights "github.com/couchbase/gocbinsights"
 )
 
-func waitForQueryResults(ctx context.Context, handle *cbanalytics.QueryHandle, delay time.Duration) (*cbanalytics.QueryResultHandle, error) {
-	var lastStatus *cbanalytics.QueryStatus
+func waitForQueryResults(ctx context.Context, handle *cbinsights.QueryHandle, delay time.Duration) (*cbinsights.QueryResultHandle, error) {
+	var lastStatus *cbinsights.QueryStatus
 	deadline, _ := ctx.Deadline()
 
 	for {
@@ -43,8 +43,8 @@ func main() {
 	username := "Administrator"
 	password := "password"
 
-	cred := cbanalytics.NewBasicAuthCredential(username, password)
-	cluster, err := cbanalytics.NewCluster(endpoint, cred)
+	cred := cbinsights.NewBasicAuthCredential(username, password)
+	cluster, err := cbinsights.NewCluster(endpoint, cred)
 	if err != nil {
 		log.Fatalf("failed to create cluster: %v", err)
 	}
@@ -97,4 +97,5 @@ func main() {
 		log.Printf("failed to discard results: %v", err)
 	}
 }
+
 // end::server-async[]
