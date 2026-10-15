@@ -43,5 +43,5 @@ any changes to expected behavior are noted in the release notes that follow.
 
 
 
-https://pkg.go.dev/github.com/couchbase/gocbanalytics[API Reference]
+https://pkg.go.dev/github.com/couchbase/gocbinsights[API Reference]
 // end::all[]

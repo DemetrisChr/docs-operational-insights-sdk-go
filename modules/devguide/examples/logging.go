@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/couchbase/gocbinsights"
 	"github.com/sirupsen/logrus"
+
+	cbinsights "github.com/couchbase/gocbinsights"
 )
 
 // #tag::loggerwrapper[]
@@ -45,10 +46,6 @@ func logging() {
 
 	opts := cbinsights.NewClusterOptions().SetLogger(&MyLogrusLogger{logger})
 	// #end::creation[]
-
-	connStr := "couchbases://..."
-	username := "..."
-	password := "..."
 
 	cluster, err := cbinsights.NewCluster(
 		connStr,

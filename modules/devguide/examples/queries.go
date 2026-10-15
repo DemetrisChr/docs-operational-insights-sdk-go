@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/couchbase/gocbanalytics"
+	cbinsights "github.com/couchbase/gocbinsights"
 )
 
 func queries() {
-	cluster, err := cbanalytics.NewCluster(
+	cluster, err := cbinsights.NewCluster(
 		connStr,
-		cbanalytics.NewBasicAuthCredential(username, password),
+		cbinsights.NewBasicAuthCredential(username, password),
 	)
 	handleErr(err)
 
@@ -19,11 +19,16 @@ func queries() {
 	positionalParamQuery(context.Background(), cluster)
 	namedParamQuery(context.Background(), cluster)
 
+	result, err := cluster.ExecuteQuery(context.Background(), "select 1")
+	handleErr(err)
+	handleResult(result)
+	metadata(result)
+
 	err = cluster.Close()
 	handleErr(err)
 }
 
-func scopeLevelQuery(ctx context.Context, cluster *cbanalytics.Cluster) {
+func scopeLevelQuery(ctx context.Context, cluster *cbinsights.Cluster) {
 	// tag::scopeLevelQuery[]
 	scope := cluster.Database("my_database").Scope("my_scope")
 	result, err := scope.ExecuteQuery(ctx, "select 1")
@@ -40,7 +45,7 @@ func scopeLevelQuery(ctx context.Context, cluster *cbanalytics.Cluster) {
 	// end::scopeLevelQuery[]
 }
 
-func clusterLevelQuery(ctx context.Context, cluster *cbanalytics.Cluster) {
+func clusterLevelQuery(ctx context.Context, cluster *cbinsights.Cluster) {
 	// tag::clusterLevelQuery[]
 	result, err := cluster.ExecuteQuery(ctx, "select 1")
 	handleErr(err)
@@ -56,12 +61,12 @@ func clusterLevelQuery(ctx context.Context, cluster *cbanalytics.Cluster) {
 	// end::clusterLevelQuery[]
 }
 
-func positionalParamQuery(ctx context.Context, cluster *cbanalytics.Cluster) {
+func positionalParamQuery(ctx context.Context, cluster *cbinsights.Cluster) {
 	// tag::positionalParamQuery[]
 	result, err := cluster.ExecuteQuery(
 		ctx,
 		"select ?=1",
-		cbanalytics.NewQueryOptions().SetPositionalParameters([]interface{}{1}),
+		cbinsights.NewQueryOptions().SetPositionalParameters([]interface{}{1}),
 	)
 	handleErr(err)
 	// end::positionalParamQuery[]
@@ -69,12 +74,12 @@ func positionalParamQuery(ctx context.Context, cluster *cbanalytics.Cluster) {
 	handleResult(result)
 }
 
-func namedParamQuery(ctx context.Context, cluster *cbanalytics.Cluster) {
+func namedParamQuery(ctx context.Context, cluster *cbinsights.Cluster) {
 	// tag::namedParamQuery[]
 	result, err := cluster.ExecuteQuery(
 		ctx,
 		"select $foo=1",
-		cbanalytics.NewQueryOptions().SetNamedParameters(map[string]interface{}{"foo": 1}),
+		cbinsights.NewQueryOptions().SetNamedParameters(map[string]interface{}{"foo": 1}),
 	)
 	handleErr(err)
 	// end::namedParamQuery[]
@@ -82,7 +87,7 @@ func namedParamQuery(ctx context.Context, cluster *cbanalytics.Cluster) {
 	handleResult(result)
 }
 
-func handleResult(result *cbanalytics.QueryResult) {
+func handleResult(result *cbinsights.QueryResult) {
 	// tag::handleResults[]
 	for row := result.NextRow(); row != nil; row = result.NextRow() {
 		var content map[string]int
@@ -99,7 +104,7 @@ func handleResult(result *cbanalytics.QueryResult) {
 	// end::handleResults[]
 }
 
-func metadata(result *cbanalytics.QueryResult) {
+func metadata(result *cbinsights.QueryResult) {
 	// tag::metadata[]
 	meta, err := result.MetaData()
 	handleErr(err)

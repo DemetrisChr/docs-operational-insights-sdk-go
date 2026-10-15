@@ -5,13 +5,13 @@
 [abstract]
 {description}
 
-Almost all configuration for the SDK can be specified through the `ClusterOptions` which are passed to the `cbanalytics.Connect` call in the SDK.
+Almost all configuration for the SDK can be specified through the `ClusterOptions` which are passed to the `cbinsights.Connect` call in the SDK.
 
 
 
 == Configure with Code
 
-To configure SDK client settings by writing code, provide an options block when creating the `Cluster` instance. Here's an example that configures several settings by passing the optional third argument to `cbanalytics.NewCluster()`:
+To configure SDK client settings by writing code, provide an options block when creating the `Cluster` instance. Here's an example that configures several settings by passing the optional third argument to `cbinsights.NewCluster()`:
 
 [source,go]
 ----
